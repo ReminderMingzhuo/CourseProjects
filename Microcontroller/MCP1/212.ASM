@@ -1,0 +1,34 @@
+DATA SEGMENT
+A DW 15786
+DATA ENDS
+;************************
+CODE SEGMENT
+ASSUME CS:CODE,DS:DATA
+START:
+	MOV AX,DATA
+	MOV DS,AX
+	XOR AX,AX
+	MOV BX,A
+	MOV CX,16
+L1:	
+	SHL BX,1
+	DEC CX 
+	JNC L1
+	MOV DL,31H
+	MOV AH,02H
+	INT 21H
+L2:	
+	MOV DL,31H
+	SHL BX,1			;左环移，结果就是商，cy就是余数
+	JC OP1			;余1，就跳到OP1去输出一个1
+	MOV DL,30H		;余0，顺序执行，输出一个0
+OP1:		
+	MOV AH,02H
+	INT 21H
+	LOOP L2
+
+MOV AH,4CH    ;返回DOS
+INT 21H
+;*************
+CODE ENDS
+END START

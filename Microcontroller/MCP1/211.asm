@@ -1,0 +1,60 @@
+DATA SEGMENT
+A DW 005AH      ;A=90
+B DW 0FFBAH     ;B=-70
+C DW 0005H      ;C=5 
+DATA ENDS
+
+STACK SEGMENT
+STA DW 100 DUP(?)
+STACK ENDS
+
+CODE SEGMENT
+ASSUME CS:CODE,DS:DATA,SS:STACK
+
+START:
+MOV AX,DATA 
+MOV DS,AX
+MOV AX,A      ;AX=A
+MOV BX,B      ;BX=B
+ADD AX,BX     ;AX=AX+BX
+MOV BX,0002H  ;BX=2
+IMUL BX       ;AX=AX*BX求分式1
+PUSH AX       ;分式1压栈
+
+MOV AX,A      ;AX=A
+MOV BX,C      ;BX=C
+IMUL BX       ;AX=AX*BX
+MOV BX,0005H  ;BX=5
+CWD           ;减法扩容
+IDIV BX       ;AX=AX/BX求分式2
+
+POP BX        ;第一个分式出栈至BX
+ADD AX,BX     ;AX=分式1+分式2
+
+MOV BX,100    ;BX=100
+CWD           ;减法扩容
+IDIV BX       ;AX=AX/BX
+PUSH DX       ;将十位和个位压栈
+MOV AH,02H    
+MOV DL,AL     ;输出百位
+ADD DL,'0'
+INT 21H
+
+POP AX        ;将十位个位出栈至AX
+MOV BL,10     
+IDIV BL       ;求十位数字
+MOV BL,AH
+MOV AH,02H
+MOV DL,AL     ;输出十位
+ADD DL,'0'
+INT 21H
+
+MOV DL,BL     ;输出个位
+ADD DL,'0'
+INT 21H
+ 
+MOV AH,4CH    ;返回DOS
+INT 21H
+
+CODE ENDS
+END START
