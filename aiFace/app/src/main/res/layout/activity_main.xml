@@ -15,19 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:text="人脸识别登录器"
+        android:text="机场人脸识别登录器"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="25dp" />
-
-    <TextView
-        android:id="@+id/textViewHomePage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:text="http://365-dz2.taobao.com"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/textViewCompany"
@@ -35,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="济南星泉信息科技有限公司"
+        android:text="李铭茁"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="15dp" />
 
